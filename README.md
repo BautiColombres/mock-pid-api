@@ -31,8 +31,18 @@ Response: `true` or `false` (random)
 
 ## Running Locally
 
+### Using Maven:
 ```bash
 ./mvnw spring-boot:run
+```
+
+### Using Docker:
+```bash
+# Build the Docker image
+docker build -t mock-pid-api .
+
+# Run the container
+docker run -p 8080:8080 mock-pid-api
 ```
 
 The API will be available at `http://localhost:8080`
@@ -54,6 +64,8 @@ curl -X POST http://localhost:8080/api/userHasMedicalCheck \
 ```
 
 ## Deploying to Render
+
+Render supports both Docker and native Java deployments. The project is configured for both.
 
 ### Option 1: Using render.yaml (Recommended)
 
