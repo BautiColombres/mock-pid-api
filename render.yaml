@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mock-pid-api
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/mock-pid-api-0.0.1-SNAPSHOT.jar
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 8080
