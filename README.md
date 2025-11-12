@@ -14,7 +14,9 @@ Request body:
 }
 ```
 
-Response: `true` or `false` (random)
+Response: 
+- `true` - if email ends with `@gmail.com`
+- `false` - for any other email
 
 ### 2. Check Medical Status
 **POST** `/api/userHasMedicalCheck`
@@ -27,7 +29,21 @@ Request body:
 }
 ```
 
-Response: `true` or `false` (random)
+Response: 
+- `200 OK` (empty body) - if email is valid and medicalCheck is provided
+- `400 Bad Request` - with error message if email is missing or invalid
+
+Examples:
+```bash
+# Valid request - returns 200
+{"email": "user@example.com", "medicalCheck": true}
+
+# Invalid - returns 400 with "Email is required"
+{"email": "", "medicalCheck": true}
+
+# Invalid - returns 400 with "Invalid email format"
+{"email": "notanemail", "medicalCheck": true}
+```
 
 ## Running Locally
 
@@ -105,6 +121,6 @@ curl -X POST https://your-service-name.onrender.com/api/isUser \
 
 ## Notes
 
-- The API returns random boolean values for both endpoints
-- The `medicalCheck` parameter in the second endpoint is received but not used (as per mock behavior)
+- The `isUser` endpoint returns `true` for Gmail addresses (@gmail.com), `false` for others
+- The `userHasMedicalCheck` endpoint validates the email format and returns HTTP status codes (200 or 400)
 - Render's free tier may spin down after inactivity; the first request after inactivity may take longer
